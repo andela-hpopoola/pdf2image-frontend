@@ -1,10 +1,11 @@
 import React from 'react';
 import 'assets/sass/App.scss';
+import Login from 'assets/components/Login';
 
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to PDF Convert</h1>
+      <Login />
     </div>
   );
 }

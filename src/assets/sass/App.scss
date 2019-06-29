@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,900');
+@import url('https://fonts.googleapis.com/css?family=Lato:300, 400,900');
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
@@ -21,3 +21,30 @@
 @import '~bootstrap/scss/tooltip';
 @import '~bootstrap/scss/utilities';
 @import '~bootstrap/scss/print';
+
+@import './Login.scss';
+
+html {
+  font-size: 0.8rem;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 0.8rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 0.9rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1rem;
+  }
+}
+
+.content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  min-height: 100%;
+}
