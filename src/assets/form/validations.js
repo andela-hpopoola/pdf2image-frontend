@@ -15,7 +15,8 @@ const strongPassword = password.min(6, 'Seems a bit short...');
 
 const confirmPassword = yup
   .string()
-  .oneOf([yup.ref('password'), null], 'Passwords must match');
+  .label('Confirm Password')
+  .oneOf([yup.ref('password')], 'Passwords must match');
 
 const loginSchema = yup.object().shape({
   email,

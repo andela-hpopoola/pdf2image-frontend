@@ -1,14 +1,20 @@
 import React, { Fragment, useState } from 'react';
 import Header from 'assets/components/Header';
 import Alert from 'assets/components/Alert';
+import Button from 'assets/components/Button';
 
 const Dashboard = () => {
   const MAX_PDF_SIZE = 1000000; //1MB
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [extractedText, setExtractedText] = useState(null);
   const [conversionTool, setConversionTool] = useState(false);
+
+  const EXTRACT_PDF_TEXT_URL = `${
+    process.env.REACT_APP_PDF_SERVICES
+  }/extract-text`;
 
   const onChangeHandler = event => {
     setConversionTool(false);
@@ -39,11 +45,10 @@ const Dashboard = () => {
   const handleSubmit = event => {
     event.preventDefault();
     setSuccess(false);
+    setLoading(true);
     const data = new FormData();
-    const url = 'http://localhost:4001/extract-text';
     data.append('pdf', selectedFile);
-
-    fetch(url, {
+    fetch(EXTRACT_PDF_TEXT_URL, {
       method: 'POST',
       body: data
     })
@@ -53,11 +58,12 @@ const Dashboard = () => {
           setExtractedText(text);
           setConversionTool(false);
           setSuccess(true);
+          setLoading(false);
         });
       })
       .catch(error => {
         setError(error.message);
-        // actions.setSubmitting(false);
+        setLoading(false);
       });
   };
 
@@ -87,12 +93,14 @@ const Dashboard = () => {
                   <div className="conversion-tool">
                     <h3>{selectedFile && selectedFile.name}</h3>
                     <div className="pt-3">
-                      <button
-                        type="submit"
-                        className="btn btn-info text-uppercase"
+                      <Button
+                        type="button"
+                        className="btn-info"
+                        onClick={handleSubmit}
+                        loading={loading}
                       >
                         Convert to Text
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 ) : (

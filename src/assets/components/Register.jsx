@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Input from 'assets/form/Input';
 import Header from 'assets/components/Header';
 import Alert from 'assets/components/Alert';
+import Button from 'assets/components/Button';
 import { Formik, Form } from 'formik';
 import { Link, navigate } from '@reach/router';
 import { registerSchema } from 'assets/form/validations';
+import { sendFormData } from 'assets/helpers/api';
+
+const REGISTER_URL = `${process.env.REACT_APP_AUTH_SERVICES}/register`;
 
 const Register = () => {
   const [error, setError] = useState('');
@@ -20,32 +24,22 @@ const Register = () => {
         <div className="login-container">
           <Header />
           <Formik
-            initialValues={{ email: 'demo@email.com', password: 'password1' }}
+            initialValues={{
+              email: 'demo@email.come',
+              password: 'password1',
+              confirmPassword: ''
+            }}
             validationSchema={registerSchema}
             onSubmit={(data, actions) => {
-              setTimeout(() => {
-                const url = 'http://localhost:4000/register';
-                console.log('data', data);
-                fetch(url, {
-                  method: 'POST',
-                  body: JSON.stringify(data),
-                  headers: {
-                    'Content-Type': 'application/json'
-                  }
+              sendFormData(REGISTER_URL, data)
+                .then(() => {
+                  setSuccess(true);
+                  actions.setSubmitting(false);
                 })
-                  .then(response => {
-                    if (response.ok) {
-                      actions.setSubmitting(false);
-                      setSuccess(true);
-                    } else {
-                      throw Error(`Invalid username or password`);
-                    }
-                  })
-                  .catch(error => {
-                    setError(error.message);
-                    actions.setSubmitting(false);
-                  });
-              }, 400);
+                .catch(error => {
+                  setError(error.message);
+                  actions.setSubmitting(false);
+                });
             }}
             render={({ isSubmitting, handleSubmit }) => (
               <Form className="pt-5">
@@ -71,20 +65,13 @@ const Register = () => {
                   placeholder="Confirm Password"
                   formGroupLabel="Confirm Password"
                 />
-                <button
-                  type="submit"
-                  className="btn btn-danger text-uppercase"
+                <Button
+                  className="btn-danger"
                   onClick={handleSubmit}
+                  loading={isSubmitting}
                 >
-                  {isSubmitting && (
-                    <span
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                  )}
                   Register
-                </button>
+                </Button>
               </Form>
             )}
           />

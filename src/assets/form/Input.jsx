@@ -17,6 +17,7 @@ const Input = ({
     <div className="form-group">
       <label htmlFor={name}>{formGroupLabel} </label>
       <Field
+        autoComplete={name}
         className={`${getValidityClass(formik, name)} ${inputClassName}`}
         id={name}
         name={name}
