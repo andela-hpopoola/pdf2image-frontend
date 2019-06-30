@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Input from 'assets/form/Input';
+import store from 'store2';
 import Header from 'assets/components/Header';
 import Alert from 'assets/components/Alert';
 import Button from 'assets/components/Button';
 import { Formik, Form } from 'formik';
 import { Link, navigate } from '@reach/router';
 import { loginSchema } from 'assets/form/validations';
-import { sendFormData } from 'assets/helpers/api';
-
-const LOGIN_URL = `${process.env.REACT_APP_AUTH_SERVICES}/login`;
+import { sendFormData, getAuthStatus } from 'assets/helpers/api';
+import { AUTH_STORE_KEY } from 'assets/helpers/config';
 
 const Login = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
+    const session = store(AUTH_STORE_KEY);
+    session &&
+      getAuthStatus(session.token).then(
+        data => data.valid_user && navigate('/dashboard')
+      );
     success && navigate('/dashboard');
   }, [success]);
 
@@ -24,11 +29,12 @@ const Login = () => {
         <div className="login-container">
           <Header />
           <Formik
-            initialValues={{ email: 'demo@email.come', password: 'password1' }}
+            initialValues={{ email: 'demo@email.com', password: 'password1' }}
             validationSchema={loginSchema}
             onSubmit={(data, actions) => {
-              sendFormData(LOGIN_URL, data)
-                .then(() => {
+              sendFormData('/login', data)
+                .then(data => {
+                  store(AUTH_STORE_KEY, data);
                   setSuccess(true);
                   actions.setSubmitting(false);
                 })

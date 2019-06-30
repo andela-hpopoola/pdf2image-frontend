@@ -1,7 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import store from 'store2';
 import Header from 'assets/components/Header';
 import Alert from 'assets/components/Alert';
 import Button from 'assets/components/Button';
+import { navigate, Link } from '@reach/router';
+import { AUTH_STORE_KEY } from 'assets/helpers/config';
 
 const Dashboard = () => {
   const MAX_PDF_SIZE = 1000000; //1MB
@@ -15,6 +18,12 @@ const Dashboard = () => {
   const EXTRACT_PDF_TEXT_URL = `${
     process.env.REACT_APP_PDF_SERVICES
   }/extract-text`;
+
+  const session = store(AUTH_STORE_KEY);
+
+  useEffect(() => {
+    !session && navigate('/');
+  }, [session]);
 
   const onChangeHandler = event => {
     setConversionTool(false);
@@ -53,7 +62,7 @@ const Dashboard = () => {
       body: data
     })
       .then(response => {
-        response.json().then(function(data) {
+        response.json().then(data => {
           const text = newLineToBr(data.result);
           setExtractedText(text);
           setConversionTool(false);
@@ -71,7 +80,14 @@ const Dashboard = () => {
     <div className="container">
       <div className="content">
         <div className="dashboard-container">
-          <Header text="You are logged in as demo@testing.com" />
+          <Header>
+            <Fragment>
+              {`You are logged in as ${session.email}`}{' '}
+              <Link className="text-center" to="/logout">
+                (Logout)
+              </Link>
+            </Fragment>
+          </Header>
 
           <div className="container pt-3">
             <form onSubmit={handleSubmit}>
