@@ -33,10 +33,7 @@ export const getAuthStatus = loginToken => {
       })
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('data', data);
-        return resolve(data);
-      })
+      .then(data => resolve(data))
       .catch(() => reject());
   });
 };

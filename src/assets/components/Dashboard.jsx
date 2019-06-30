@@ -38,7 +38,7 @@ const Dashboard = () => {
     }
   };
 
-  const newLineToBr = text => {
+  const newLineToBr = (text = '') => {
     return text.split('\n').map((line, key) => (
       <Fragment key={key}>
         {line}
@@ -59,6 +59,9 @@ const Dashboard = () => {
     data.append('pdf', selectedFile);
     fetch(EXTRACT_PDF_TEXT_URL, {
       method: 'POST',
+      headers: new Headers({
+        'x-auth': session.token
+      }),
       body: data
     })
       .then(response => {
