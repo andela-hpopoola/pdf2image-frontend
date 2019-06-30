@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "452dce972f6dbaa56801d452f4b0cf21",
+    "revision": "8e596685e227ced60b561eba9761a62b",
     "url": "/andela-hpopoola/pdf2image-frontend/index.html"
   },
   {
-    "revision": "db199918eb3d5f3bfe33",
+    "revision": "eb9defbd6c3e3cfb34f9",
     "url": "/andela-hpopoola/pdf2image-frontend/static/css/main.398e06f7.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/andela-hpopoola/pdf2image-frontend/static/js/2.dde5bb1b.chunk.js"
   },
   {
-    "revision": "db199918eb3d5f3bfe33",
-    "url": "/andela-hpopoola/pdf2image-frontend/static/js/main.66c66aa8.chunk.js"
+    "revision": "eb9defbd6c3e3cfb34f9",
+    "url": "/andela-hpopoola/pdf2image-frontend/static/js/main.c79ea70b.chunk.js"
   },
   {
     "revision": "1b26bae02fbcf00066c1",

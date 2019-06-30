@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/andela-hpopoola/pdf2image-frontend/precache-manifest.b9f28207743fd3d49309adab32656200.js"
+  "/andela-hpopoola/pdf2image-frontend/precache-manifest.1ea91cadbd26c7e298ba02ac4595d125.js"
 );
 
 self.addEventListener('message', (event) => {
