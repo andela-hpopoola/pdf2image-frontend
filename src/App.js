@@ -1,11 +1,18 @@
 import React from 'react';
-import 'assets/sass/App.scss';
+import { Router } from '@reach/router';
 import Login from 'assets/components/Login';
+import Register from 'assets/components/Register';
+import Dashboard from 'assets/components/Dashboard';
+import 'assets/sass/App.scss';
 
 function App() {
   return (
     <div className="App">
-      <Login />
+      <Router>
+        <Login path="/" />
+        <Register path="register" />
+        <Dashboard path="dashboard" />
+      </Router>
     </div>
   );
 }

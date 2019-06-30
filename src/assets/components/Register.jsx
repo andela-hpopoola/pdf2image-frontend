@@ -4,9 +4,9 @@ import Header from 'assets/components/Header';
 import Alert from 'assets/components/Alert';
 import { Formik, Form } from 'formik';
 import { Link, navigate } from '@reach/router';
-import { loginSchema } from 'assets/form/validations';
+import { registerSchema } from 'assets/form/validations';
 
-const Login = () => {
+const Register = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
@@ -20,11 +20,12 @@ const Login = () => {
         <div className="login-container">
           <Header />
           <Formik
-            initialValues={{ email: 'demo@email.come', password: 'password1' }}
-            validationSchema={loginSchema}
+            initialValues={{ email: 'demo@email.com', password: 'password1' }}
+            validationSchema={registerSchema}
             onSubmit={(data, actions) => {
               setTimeout(() => {
-                const url = 'http://localhost:4000/login';
+                const url = 'http://localhost:4000/register';
+                console.log('data', data);
                 fetch(url, {
                   method: 'POST',
                   body: JSON.stringify(data),
@@ -48,21 +49,27 @@ const Login = () => {
             }}
             render={({ isSubmitting, handleSubmit }) => (
               <Form className="pt-5">
-                <h4 className="login-text">Log into your Account</h4>
+                <h4 className="login-text">Register a new Account</h4>
                 {error && <Alert message={error} />}
                 <Input
                   name="email"
                   type="email"
                   placeholder="Email Address"
                   formGroupLabel="Email"
-                  tooltip="Your email address"
+                  isValidMessage="Awesowe, you entered a valid email address"
                 />
                 <Input
                   name="password"
                   type="password"
                   placeholder="Password"
                   formGroupLabel="Password"
-                  tooltip="Your password"
+                  isValidMessage="Awesome, your password is strong"
+                />
+                <Input
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm Password"
+                  formGroupLabel="Confirm Password"
                 />
                 <button
                   type="submit"
@@ -76,13 +83,13 @@ const Login = () => {
                       aria-hidden="true"
                     />
                   )}
-                  Sign in
+                  Register
                 </button>
               </Form>
             )}
           />
           <div className="text-center text-small pt-5">
-            Dont have an account? <Link to="/register">Sign up now</Link>
+            Have an account? <Link to="/">Sign in now</Link>
           </div>
         </div>
       </div>
@@ -90,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
