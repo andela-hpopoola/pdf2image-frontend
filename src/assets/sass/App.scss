@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300, 400,900');
+$font-family-sans-serif: 'Rubik', sans-serif;
+
+@import url('https://fonts.googleapis.com/css?family=Rubik:300, 400,900');
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
@@ -43,4 +45,17 @@ html {
   align-items: center;
   padding: 4rem;
   min-height: 100%;
+}
+
+.logo {
+  color: #cfd8e4;
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -5px;
+  margin-bottom: 0;
+
+  span {
+    display: block;
+    margin-top: -1rem;
+  }
 }

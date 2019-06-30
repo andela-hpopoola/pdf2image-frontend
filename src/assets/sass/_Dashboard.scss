@@ -1,3 +1,10 @@
+$text-color: #adb5bd;
+
+.dashboard-container {
+  width: 40rem;
+  max-width: 40rem;
+}
+
 .files {
   position: relative;
   &:before,
@@ -9,7 +16,7 @@
     height: 40px;
     display: block;
     margin: 0 auto;
-    color: #adb5bd;
+    color: $text-color;
     text-align: center;
     text-transform: capitalize;
     font-weight: 600;
@@ -41,4 +48,21 @@
       outline: 2px dashed rgba($success, 0.5);
     }
   }
+}
+
+.conversion-tool {
+  color: $text-color;
+  outline: 2px dashed rgba($info, 0.5);
+  outline-offset: -15px;
+  width: 100%;
+  background: white;
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.upload-another {
+  font-size: 1rem;
+  font-weight: bold;
+  padding-bottom: 0.8rem;
+  color: rgba($danger, 0.8);
 }
