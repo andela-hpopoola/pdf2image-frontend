@@ -33,9 +33,16 @@ const Register = () => {
             onSubmit={(data, actions) => {
               sendFormData('/register', data)
                 .then(() => {
-                  store(AUTH_STORE_KEY, data);
-                  setSuccess(true);
-                  actions.setSubmitting(false);
+                  sendFormData('/login', data)
+                    .then(data => {
+                      store(AUTH_STORE_KEY, data);
+                      setSuccess(true);
+                      actions.setSubmitting(false);
+                    })
+                    .catch(error => {
+                      setError(error);
+                      actions.setSubmitting(false);
+                    });
                 })
                 .catch(error => {
                   setError(error.message);
