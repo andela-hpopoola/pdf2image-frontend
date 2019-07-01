@@ -29,7 +29,7 @@ const Login = () => {
         <div className="login-container">
           <Header />
           <Formik
-            initialValues={{ email: 'demo@email.com', password: 'password1' }}
+            initialValues={{ email: '', password: '' }}
             validationSchema={loginSchema}
             onSubmit={(data, actions) => {
               sendFormData('/login', data)

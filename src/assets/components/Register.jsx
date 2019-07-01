@@ -25,24 +25,28 @@ const Register = () => {
           <Header />
           <Formik
             initialValues={{
-              email: 'demo@testing.com',
+              email: '',
               password: '',
               confirmPassword: ''
             }}
             validationSchema={registerSchema}
             onSubmit={(data, actions) => {
               sendFormData('/register', data)
-                .then(() => {
-                  sendFormData('/login', data)
-                    .then(data => {
-                      store(AUTH_STORE_KEY, data);
-                      setSuccess(true);
-                      actions.setSubmitting(false);
-                    })
-                    .catch(error => {
-                      setError(error);
-                      actions.setSubmitting(false);
-                    });
+                .then(result => {
+                  if (result && result.msg) {
+                    throw new Error(result.msg);
+                  } else {
+                    sendFormData('/login', data)
+                      .then(data => {
+                        store(AUTH_STORE_KEY, data);
+                        setSuccess(true);
+                        actions.setSubmitting(false);
+                      })
+                      .catch(error => {
+                        setError(error);
+                        actions.setSubmitting(false);
+                      });
+                  }
                 })
                 .catch(error => {
                   setError(error.message);
